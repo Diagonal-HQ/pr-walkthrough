@@ -1,175 +1,228 @@
-# PR Walkthrough
+<div align="center">
 
-**Give your reviewer a video of the change.**
+# PR Video Walkthrough
 
-An agent skill and a small set of tools for making narrated pull request walkthroughs. The agent records your running app, explains the visible result, and renders a 1080p MP4. Changes without a UI get a before-and-after code walkthrough from real git revisions.
+### Give your reviewer a video of the change.
 
-Built from the workflow we use at Diagonal. Works with any web application. No Laravel, Diagonal account, Linear integration, or upload service is required.
+Your coding agent records the real app, narrates the flow, and delivers a ready-to-review video.<br>
+Backend change? Show the important code before and after.
 
-The original walkthrough skill and video pipeline were built by **[Craig Paul](https://github.com/craigpaul)**, with contributions from **[Owen Conti](https://github.com/owenconti)**, **[Lucas](https://github.com/harrisonlucaswork)**, and the Diagonal engineering team. See [Credits](CREDITS.md) for their work.
+[![Agent skill](https://img.shields.io/badge/agent_skill-portable-21382E?style=flat-square)](skills/pr-walkthrough/SKILL.md)
+[![Output](https://img.shields.io/badge/output-1080p_MP4-314158?style=flat-square)](#what-you-get)
+[![Narration](https://img.shields.io/badge/voice-ElevenLabs_%2B_local-607466?style=flat-square)](#choose-your-voice)
+[![License: MIT](https://img.shields.io/badge/license-MIT-B8C8AE?style=flat-square)](LICENSE)
 
-## Try it locally
+Built by the [Diagonal](https://github.com/Diagonal-HQ) engineering team. Shared as a portable agent skill.
 
-You need Node.js 22+, Python 3.10+, FFmpeg (including `ffprobe`), and git. Python uses only its standard library. The browser is Playwright's bundled Chromium.
+</div>
 
-```bash
-# macOS
-brew install node python ffmpeg
+---
 
-# Ubuntu / Debian
-# sudo apt-get update
-# sudo apt-get install ffmpeg python3 espeak-ng
-# Install Node.js 22+ using your preferred method.
+## Start here: copy this to your agent
 
+Open your project in your coding agent and paste this prompt. It handles installation and project setup.
+
+~~~text
+Set up PR Video Walkthrough in this project:
+https://github.com/Diagonal-HQ/pr-walkthrough
+
+Read the repository README and skills/pr-walkthrough/SKILL.md first.
+Follow this project's existing agent instructions and skill conventions.
+
+1. Clone the repository into a temporary directory. It is currently private;
+   use my existing GitHub authentication. If access fails, report that blocker.
+2. Install the self-contained skills/pr-walkthrough directory in the skill
+   location this project uses. Preserve any existing installation or customizations.
+3. Check Node.js 22+, Python 3.10+, git, FFmpeg, and ffprobe. Install the skill's
+   npm dependencies with npm ci --workspaces=false, then its Playwright Chromium.
+   Follow this project's rules for installing missing system tools.
+4. Add .walkthrough/ to the project .gitignore. Keep generated video, audio,
+   screenshots, and browser auth state inside that ignored directory.
+5. Find our local app URL, start command, test login, and fixture tools.
+   Configure a walkthrough project and its setup hook using those conventions.
+   If there is no useful app surface, configure the code-walkthrough preset.
+6. Prefer ElevenLabs for final narration. Document how this project supplies
+   ELEVENLABS_API_KEY without printing or committing its value.
+   Use a free local or silent preview for setup checks.
+7. Run doctor and a narration dry run from the application checkout.
+   Add a short note to our agent instructions explaining how to request a video.
+
+Do not make paid speech requests, upload media, push commits, or change GitHub
+as part of setup. Tell me what you configured, what passed, and any blocker.
+Finish by giving me the exact prompt to make a video of my next PR.
+~~~
+
+> **Private for now:** repository access is required. There is no Diagonal product account or framework dependency.
+
+Once installed, ask for your first video:
+
+~~~text
+Use pr-walkthrough to make a 45–60 second narrated video of this PR for its reviewer.
+Explore the change first. Show the real app behavior and the visible result.
+For a change without a useful app surface, show real git code before and after.
+Use ElevenLabs with our configured key, within the default character budget.
+If it is unavailable, tell me before switching voices.
+Review the video and save the MP4, captions, and transcript locally.
+~~~
+
+<details>
+<summary><strong>Make videos part of your shipping workflow</strong></summary>
+
+Add a short instruction to your shipping skill or `AGENTS.md` after installation:
+
+~~~text
+After validation, use pr-walkthrough to record a short video for the PR reviewer.
+Film real app behavior for visible changes; use code slides otherwise.
+Use the project's configured narration provider and budget.
+Return the video, captions, transcript, and review result.
+Publish and link the video only when this shipping workflow authorizes it.
+If capture fails twice, record the blocker and continue the existing PR workflow.
+Re-record affected beats if a later change alters what the video shows.
+~~~
+
+See [publishing and PR integration](skills/pr-walkthrough/references/publishing.md) for upload configuration and a PR description template.
+
+</details>
+
+## What you get
+
+| **Show the product** | **Explain the code** | **Hand off the result** |
+| --- | --- | --- |
+| Record your running app with a visible cursor and click feedback. | Film readable, highlighted code from real base and head revisions. | Deliver a 1080p MP4, captions, a transcript, and review images. |
+| Reuse your app's login and fixture tools. | Explain the failure, the fix, and the evidence. | Keep it local or publish through your existing PR asset workflow. |
+
+**The voice sets the pace.** Generate narration first. Each recorded action gets enough time for its explanation, and the edit plays at normal speed. The camera stays still unless a measured readability problem needs a zoom or highlight.
+
+~~~mermaid
+flowchart LR
+  A[Explore the change] --> B[Write the script]
+  B --> C[Generate narration]
+  C --> D[Record the real flow]
+  D --> E[Render and review]
+  E --> F[Share with the reviewer]
+~~~
+
+The agent does the product thinking: explore the flow, choose selectors, write accurate narration, and inspect the result. The tools handle capture, timing, captions, rendering, and media checks.
+
+## Choose your voice
+
+**Use ElevenLabs for a natural voice in the final video.** Free local narration is useful for checking the pipeline, but sounds synthetic.
+
+| Provider | Best use | What you need |
+| --- | --- | --- |
+| `elevenlabs` | Final demos and reviewer handoffs | An exported `ELEVENLABS_API_KEY`; synthesis incurs cost |
+| `local` | Free setup checks and quick iteration | macOS `say` or Linux `espeak-ng` |
+| `silent` | A preview without spoken audio | No speech tool or API key; load the separate captions |
+
+The ElevenLabs default is **Liam**, a conversational voice, with `eleven_multilingual_v2`. Voice and model settings are configurable. Paid requests use a shared cache and a per-project character budget. Run `--dry-run` before synthesis. See [narration and cost](skills/pr-walkthrough/references/narration.md).
+
+## Try the complete example
+
+The bundled example records a small task app with synthetic data. It filters the list, saves a named view, and shows the result.
+
+From a clone of this repository, install **Node.js 22+**, **Python 3.10+**, **FFmpeg** (including `ffprobe`), and **git**, then run:
+
+~~~bash
 npm ci
 npx playwright install chromium
-# On Linux, use: npx playwright install --with-deps chromium
 npm run walkthrough -- doctor
 npm run demo
-```
+~~~
 
-The demo uses a bundled example app with synthetic data and free operating-system narration (`say` on macOS, `espeak-ng` on Linux). It writes:
+On Linux, use `npx playwright install --with-deps chromium` and install `espeak-ng` for local narration. On macOS, `brew install node python ffmpeg` installs the system tools.
 
-```text
-.walkthrough/demo/
-├── out/saved-views.mp4
-├── out/captions.srt
-├── out/captions.vtt
-├── out/script-with-timings.md
-└── review/
-    ├── sheet.png
-    └── facts.md
-```
+The default demo uses the free local voice. For the more natural ElevenLabs version, export your API key and select the provider explicitly:
 
-Open `.walkthrough/demo/out/saved-views.mp4`. Nothing is uploaded. The output folder is git-ignored. To run another take, choose a new folder:
+~~~bash
+npm run demo -- --project .walkthrough/demo-elevenlabs --provider elevenlabs
+~~~
 
-```bash
-npm run demo -- --project .walkthrough/second-take
-```
+| Open the video | Inspect the evidence |
+| --- | --- |
+| `.walkthrough/demo/out/saved-views.mp4` | `.walkthrough/demo/review/sheet.png` |
+| 1080p MP4 with narration | Contact sheet and media checks |
 
-For a silent preview with no speech tool or API key:
+With the ElevenLabs command, replace `demo` with `demo-elevenlabs` in those paths. Captions and the timed transcript are beside the MP4. Nothing is uploaded. Use a new output folder for another take.
 
-```bash
-npm run demo -- --project .walkthrough/silent-preview --provider silent
-```
+## Pick the right walkthrough
 
-Captions are separate SRT and WebVTT files, not burned into the picture. Silent previews need a player that loads the caption file.
+| Preset | Use it for | Target length |
+| --- | --- | --- |
+| **Feature clip** · `feature-clip` | One feature, bug fix, or PR | 30–90 seconds |
+| **Code walkthrough** · `code-walkthrough` | A change without a useful visible surface | 30–120 seconds |
+| **Product walkthrough** · `product-walkthrough` | A longer flow with chapters | 2–4 minutes |
 
-## Use it with your coding agent
+## Go deeper
 
-The installable skill is [`skills/pr-walkthrough`](skills/pr-walkthrough/SKILL.md). Its instructions, scripts, examples, and dependencies are self-contained.
+| I want to… | Read this |
+| --- | --- |
+| Set up login, fixtures, or browser capture | [App setup and capture](skills/pr-walkthrough/references/capture.md) |
+| Write a clear script and shot list | [Script format](skills/pr-walkthrough/references/script.md) |
+| Show a backend change | [Before-and-after code videos](skills/pr-walkthrough/references/code.md) |
+| Tune the voice or control spending | [Narration and cost](skills/pr-walkthrough/references/narration.md) |
+| Fix a render or review the result | [Rendering and troubleshooting](skills/pr-walkthrough/references/rendering.md) |
+| Upload a video and link it on a PR | [Publishing and PR integration](skills/pr-walkthrough/references/publishing.md) |
+| Understand the original workflow | [How Diagonal uses it](docs/how-we-use-it.md) |
 
-While this repository is private, users with access can clone it and copy that directory into your project's `.agents/skills/` folder, or into the skill directory your agent uses. Then install its dependencies:
+<details>
+<summary><strong>Manual installation and commands</strong></summary>
 
-```bash
-cd /path/to/your-project/.agents/skills/pr-walkthrough
+Copy [`skills/pr-walkthrough`](skills/pr-walkthrough/SKILL.md) into your project's agent skill directory. The entire folder is self-contained. Install dependencies from that installed directory:
+
+~~~bash
 npm ci --workspaces=false
 npx playwright install chromium
-```
+~~~
 
-Ask your agent:
+In the application checkout, set `SKILL` to the absolute installed skill directory and initialize a project:
 
-> Use the pr-walkthrough skill to make a 45–60 second video of this PR. Show the changed behavior in the running app. Use local narration and save the MP4 locally.
-
-Or:
-
-> Make a code walkthrough of this backend PR. Show the important code before and after, then the test that covers the change.
-
-The agent needs terminal access and access to your local app. The scripts perform capture and rendering. The agent still explores your product, writes the narration, chooses selectors, and inspects the result. This is not a tool that turns an arbitrary diff into a finished video without that work.
-
-Once this repo has a public GitHub URL, it can also be installed with the Skills CLI. See [publishing the repository](docs/publishing.md).
-
-## Make a video of your app
-
-You can also run the tools directly. From this checkout:
-
-```bash
-npm run walkthrough -- init .walkthrough/my-change
+~~~bash
+export SKILL="/absolute/path/to/your-project/.agents/skills/pr-walkthrough"
+node "$SKILL/scripts/cli.mjs" init .walkthrough/my-change
 export WALKTHROUGH_PROJECT="$PWD/.walkthrough/my-change"
-```
+~~~
 
-Edit the generated files:
+Add `.walkthrough/` to the application's `.gitignore` first. Edit `video.json` for narration, `walkthrough.json` for the app URL and setup hook, and `scenes/main.mjs` for the actions.
 
-- `video.json`: the audience, one message, and narration lines.
-- `walkthrough.json`: your running app URL and optional setup hook.
-- `scenes/main.mjs`: the real actions to record, one beat per narration line.
+~~~bash
+node "$SKILL/scripts/cli.mjs" narrate --provider local --dry-run
+node "$SKILL/scripts/cli.mjs" narrate --provider local
+node "$SKILL/scripts/cli.mjs" capture
+node "$SKILL/scripts/cli.mjs" review --footage
+node "$SKILL/scripts/cli.mjs" build
+node "$SKILL/scripts/cli.mjs" render --stills
+# Inspect the stills before rendering the full video.
+node "$SKILL/scripts/cli.mjs" render --name my-change
+node "$SKILL/scripts/cli.mjs" review "$WALKTHROUGH_PROJECT/out/my-change.mp4"
+~~~
 
-Then run:
+From this repository's checkout, `npm run walkthrough --` is a shortcut for the CLI. Use `--provider elevenlabs` for paid narration with an exported API key. Captions are separate `.srt` and `.vtt` files; they are not burned into the picture.
 
-```bash
-npm run walkthrough -- narrate --provider local --dry-run
-npm run walkthrough -- narrate --provider local
-npm run walkthrough -- capture
-npm run walkthrough -- review --footage
-npm run walkthrough -- build
-npm run walkthrough -- render --stills
-# Inspect the review images before rendering the full video.
-npm run walkthrough -- render
-npm run walkthrough -- review "$WALKTHROUGH_PROJECT/out/my-change.mp4"
-```
+</details>
 
-The default file name comes from the title in `video.json`. Use `render --name my-change` to choose it explicitly. A capture can be repeated; it replaces that clip. A failed capture removes the previous take so it cannot be used by mistake.
+<details>
+<summary><strong>Development and supported environments</strong></summary>
 
-For an installed skill, use `node /path/to/pr-walkthrough/scripts/cli.mjs` in place of `npm run walkthrough --`.
-
-## How it works
-
-```mermaid
-flowchart LR
-  A[Agent explores the change] --> B[Script and shot list]
-  B --> C[Narration]
-  C --> D[Real app or git code capture]
-  D --> E[Timeline and captions]
-  E --> F[Review frames]
-  F --> G[1080p MP4]
-  G --> H[Optional upload and PR link]
-```
-
-**The narration drives the timeline.** Each captured beat holds for its spoken line. The edit plays the footage at normal speed. Slow loading waits can be removed explicitly; meaningful actions stay on screen.
-
-The default camera stays still. Cursor movement and a click ring make the action clear. Optional zooms and highlights need a stated reason and must pass the motion limits.
-
-| Mode | Use | Target length |
-| --- | --- | --- |
-| `feature-clip` | One feature or bug fix | 30–90 seconds |
-| `code-walkthrough` | A change without a visible app surface | 30–120 seconds |
-| `product-walkthrough` | A longer flow with chapters | 2–4 minutes |
-
-## Narration
-
-| Provider | Credentials | Use |
-| --- | --- | --- |
-| `local` | None | Free narration with macOS `say` or Linux `espeak-ng` |
-| `elevenlabs` | `ELEVENLABS_API_KEY` | Higher-quality narration with character timing |
-| `silent` | None | Silent audio and timed caption files for previews |
-
-ElevenLabs is the default for the `narrate` command; the demo explicitly selects `local`. Use `--provider` to choose. Paid requests use a shared cache and a per-project character budget. Run `--dry-run` before generating speech. See [narration and cost](skills/pr-walkthrough/references/narration.md).
-
-## Adapt it to your project
-
-- [App setup, login, fixtures, and capture API](skills/pr-walkthrough/references/capture.md)
-- [Script format and presets](skills/pr-walkthrough/references/script.md)
-- [Before-and-after code videos](skills/pr-walkthrough/references/code.md)
-- [Rendering, review, and troubleshooting](skills/pr-walkthrough/references/rendering.md)
-- [Optional publishing and PR workflow integration](skills/pr-walkthrough/references/publishing.md)
-- [How Diagonal uses this pattern](docs/how-we-use-it.md)
-
-App login and data setup belong in your project's hook. Use test data. The capture tools do not know your framework or application schema.
-
-## Development
-
-```bash
+~~~bash
 npm run check
 npm run test:timeline
 npm run test:audio
 npm run test:narration
 npm run test:contracts
-```
+~~~
 
-CI also renders the bundled demo with local speech on Linux and keeps the output as a workflow artifact. No external account is needed. See [CONTRIBUTING.md](CONTRIBUTING.md).
+CI is configured to render the bundled demo with local speech on Linux and retain the result as a workflow artifact. Python uses its standard library. Browser capture uses Playwright's bundled Chromium. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Scope
+This release targets macOS and Linux. Windows is not verified. A person or vision-capable agent still needs to inspect the video: media checks establish format and timing, not product correctness. Uploads and GitHub changes remain explicit actions.
 
-This release targets macOS and Linux. Windows support is not verified. Visual review still needs a person or a vision-capable agent: the media checks can detect format and timing problems, but cannot establish that your product behaves correctly. Uploads and GitHub changes are explicit actions.
+</details>
 
-MIT licensed. Created by Diagonal.
+---
+
+## Built at Diagonal
+
+The original walkthrough skill and video pipeline were built by **[Craig Paul](https://github.com/craigpaul)**, with contributions from **[Owen Conti](https://github.com/owenconti)**, **[Lucas](https://github.com/harrisonlucaswork)**, and the Diagonal engineering team.
+
+This repo makes that workflow portable. No Laravel, Linear integration, Diagonal product account, or upload service is required.
+
+**[Meet the contributors →](CREDITS.md)** · **[MIT license](LICENSE)** · **[Cover image art direction](docs/cover-image-prompt.md)**

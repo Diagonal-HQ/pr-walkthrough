@@ -1,6 +1,6 @@
 # Repository guidance
 
-This repository packages the PR Walkthrough skill. Keep its runtime, examples, and references self-contained in `skills/pr-walkthrough/`. A copied skill must work outside this checkout.
+This repository packages PR Video Walkthrough and its pr-walkthrough skill. Keep its runtime, examples, and references self-contained in `skills/pr-walkthrough/`. A copied skill must work outside this checkout.
 
 Use Node.js 22+, Python 3.10+, and FFmpeg. Python runtime scripts use the standard library. Use Playwright's bundled Chromium for capture. Keep root and standalone skill lockfiles in sync when changing dependencies.
 

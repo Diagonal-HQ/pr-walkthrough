@@ -1,6 +1,6 @@
 # Credits
 
-PR Walkthrough grew out of the engineering workflow at [Diagonal](https://github.com/Diagonal-HQ). This standalone repository builds on the team's original recording, narration, editing, and review tools.
+PR Video Walkthrough grew out of the engineering workflow at [Diagonal](https://github.com/Diagonal-HQ). This standalone repository builds on the team's original recording, narration, editing, and review tools.
 
 Special thanks to **[Craig Paul (@craigpaul)](https://github.com/craigpaul)**, who added the original walkthrough skill and its product video pipeline. His work established the script, narration-driven capture, rendering, captions, motion rules, and quality review. He later added narration pause checks and simplified the audio workflow.
 
