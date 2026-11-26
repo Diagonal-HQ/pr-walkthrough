@@ -1,6 +1,6 @@
 <div align="center">
 
-# PR Video Walkthrough
+<img src="docs/assets/cover.png" alt="Diagonal — PR Video Walkthrough: a code change becomes a narrated app video" width="100%">
 
 ### Give your reviewer a video of the change.
 

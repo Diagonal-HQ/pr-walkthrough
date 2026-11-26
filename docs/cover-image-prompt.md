@@ -18,7 +18,7 @@ Output: 2400 × 1000 pixels, landscape. Keep the important objects within the ce
 
 ## Use it in the repository
 
-Save the selected, reviewed image as `docs/assets/cover.png`. Add this above the centered README title only after that file exists:
+The selected cover is saved as `docs/assets/cover.png` and appears at the top of the README. To replace it, use the same path. The image markup is:
 
 ~~~html
 <p align="center">
