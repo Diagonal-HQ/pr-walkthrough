@@ -1,0 +1,61 @@
+{
+  "title": "Replace: product area",
+  "preset": "product-walkthrough",
+  "audience": "Replace: who watches this, and what they know already",
+  "message": "Replace: the one sentence the viewer must remember",
+  "voice": {
+    "id": "TX3LPaxmHKxFdv7VOQHJ",
+    "model": "eleven_multilingual_v2"
+  },
+  "say": {},
+  "lines": [
+    {
+      "id": "title",
+      "on": "title",
+      "heading": "Replace: product area",
+      "sub": "Replace: the promise",
+      "text": "Replace: the hook and the promise."
+    },
+    {
+      "id": "orient",
+      "text": "Replace: where the viewer is and what is on the screen."
+    },
+    {
+      "id": "ch1",
+      "on": "section",
+      "heading": "Replace: chapter 1 goal"
+    },
+    {
+      "id": "ch1_a",
+      "text": "Replace: action."
+    },
+    {
+      "id": "ch1_b",
+      "text": "Replace: result."
+    },
+    {
+      "id": "ch2",
+      "on": "section",
+      "heading": "Replace: chapter 2 goal"
+    },
+    {
+      "id": "ch2_a",
+      "text": "Replace: action."
+    },
+    {
+      "id": "ch2_b",
+      "text": "Replace: result. This line has an example of a move."
+    },
+    {
+      "id": "recap",
+      "text": "Replace: the recap in one sentence."
+    },
+    {
+      "id": "end",
+      "on": "end",
+      "heading": "Replace: the message",
+      "sub": "Replace: the one next step",
+      "text": "Replace: the call to action."
+    }
+  ]
+}

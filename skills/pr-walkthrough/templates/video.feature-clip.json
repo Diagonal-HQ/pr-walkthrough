@@ -1,0 +1,15 @@
+{
+  "title": "Replace: short name of the feature",
+  "preset": "feature-clip",
+  "audience": "Replace: who watches this, and what they know already",
+  "message": "Replace: the one sentence the viewer must remember",
+  "voice": { "id": "TX3LPaxmHKxFdv7VOQHJ", "model": "eleven_multilingual_v2" },
+  "say": {},
+  "lines": [
+    { "id": "title", "on": "title", "heading": "Replace: feature name", "sub": "Replace: the result in a few words", "text": "Replace: the hook. Say the result, not the feature." },
+    { "id": "s1", "text": "Replace: the first action and what it does." },
+    { "id": "s2", "text": "Replace: the next action." },
+    { "id": "result", "text": "Replace: the visible result." },
+    { "id": "end", "on": "end", "heading": "Replace: the message in a few words", "text": "Replace: one closing fact." }
+  ]
+}

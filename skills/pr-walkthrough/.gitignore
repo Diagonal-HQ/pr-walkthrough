@@ -1,0 +1,5 @@
+node_modules/
+.walkthrough/
+__pycache__/
+*.pyc
+.env

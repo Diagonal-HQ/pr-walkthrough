@@ -1,0 +1,19 @@
+{
+  "name": "pr-walkthrough-repository",
+  "private": true,
+  "workspaces": [
+    "skills/pr-walkthrough"
+  ],
+  "scripts": {
+    "walkthrough": "node skills/pr-walkthrough/scripts/cli.mjs",
+    "demo": "node skills/pr-walkthrough/scripts/cli.mjs demo",
+    "check": "node scripts/check.mjs",
+    "test:timeline": "python3 -B -m unittest discover -s skills/pr-walkthrough/tests -p test_build_timeline.py",
+    "test:audio": "python3 -B -m unittest discover -s skills/pr-walkthrough/tests -p test_render_audio.py",
+    "test:narration": "python3 -B -m unittest discover -s skills/pr-walkthrough/tests -p test_narration_pauses.py",
+    "test:contracts": "python3 -B -m unittest discover -s skills/pr-walkthrough/tests -p test_contracts.py"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

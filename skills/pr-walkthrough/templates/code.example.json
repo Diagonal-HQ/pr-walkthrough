@@ -1,0 +1,35 @@
+{
+  "title": "Replace: short name of the change",
+  "base": "origin/main",
+  "head": "HEAD",
+  "slides": [
+    {
+      "id": "files",
+      "kind": "files",
+      "title": "What changed",
+      "exclude": [
+        "version.json",
+        "CHANGELOG"
+      ]
+    },
+    {
+      "id": "before",
+      "ref": "base",
+      "file": "src/validate.ts",
+      "lines": "10-20"
+    },
+    {
+      "id": "after",
+      "ref": "head",
+      "file": "src/validate.ts",
+      "lines": "10-25",
+      "title": "Replace: optional one-line heading"
+    },
+    {
+      "id": "test",
+      "ref": "head",
+      "file": "tests/validate.test.ts",
+      "lines": "8-20"
+    }
+  ]
+}

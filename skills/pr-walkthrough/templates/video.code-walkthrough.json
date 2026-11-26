@@ -1,0 +1,17 @@
+{
+  "title": "Replace: short name of the change",
+  "preset": "code-walkthrough",
+  "audience": "Replace: the engineer who reviews this PR, and what they know already",
+  "message": "Replace: the one sentence the reviewer must remember about why this change is right",
+  "voice": { "id": "TX3LPaxmHKxFdv7VOQHJ", "model": "eleven_multilingual_v2" },
+  "say": {},
+  "lines": [
+    { "id": "title", "on": "title", "heading": "Replace: change name", "sub": "Replace: the result in a few words", "text": "Replace: the hook. Say what was wrong or missing, and for whom." },
+    { "id": "files", "text": "Replace: where the change lives, in one sentence over the files slide." },
+    { "id": "before", "text": "Replace: what the old code did, over the before slide. Name the highlighted lines." },
+    { "id": "why", "text": "Replace: why that was wrong, with the concrete failure." },
+    { "id": "after", "text": "Replace: what the new code does, over the after slide." },
+    { "id": "test", "text": "Replace: the test that proves it, over the test slide." },
+    { "id": "end", "on": "end", "heading": "Replace: the message in a few words", "text": "Replace: one closing fact." }
+  ]
+}

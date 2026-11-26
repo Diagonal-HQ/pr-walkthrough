@@ -1,0 +1,14 @@
+{
+  "title": "Saved views",
+  "preset": "feature-clip",
+  "audience": "An engineer reviewing the saved views change",
+  "message": "Save a filtered task list as a named view.",
+  "lines": [
+    {"id":"title","on":"title","heading":"Keep the work in view.","sub":"A pull request walkthrough · Saved views","text":"This change lets you save a filtered task list as a named view. Here is the complete flow."},
+    {"id":"orient","text":"The task list starts with five tasks. Open and completed work appear together, with a status beside each task."},
+    {"id":"filter","text":"Select Open only to hide the completed tasks. The list now shows the three tasks that still need attention."},
+    {"id":"name","text":"Select Save view and enter a name. This name identifies the filtered list, so it should describe the work."},
+    {"id":"save","text":"Select Save to create the view. Its name appears beside the filter, while the three open tasks stay visible."},
+    {"id":"end","on":"end","heading":"One filter. One named view.","sub":"Recorded from the bundled example app","text":"The result is a named view of the open work. The walkthrough shows the action and its visible result."}
+  ]
+}
