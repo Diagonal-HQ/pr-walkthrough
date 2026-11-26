@@ -29,8 +29,8 @@ https://github.com/Diagonal-HQ/pr-walkthrough
 Read the repository README and skills/pr-walkthrough/SKILL.md first.
 Follow this project's existing agent instructions and skill conventions.
 
-1. Clone the repository into a temporary directory. It is currently private;
-   use my existing GitHub authentication. If access fails, report that blocker.
+1. Clone the public repository into a temporary directory using:
+   git clone https://github.com/Diagonal-HQ/pr-walkthrough.git
 2. Install the self-contained skills/pr-walkthrough directory in the skill
    location this project uses. Preserve any existing installation or customizations.
 3. Check Node.js 22+, Python 3.10+, git, FFmpeg, and ffprobe. Install the skill's
@@ -52,7 +52,15 @@ as part of setup. Tell me what you configured, what passed, and any blocker.
 Finish by giving me the exact prompt to make a video of my next PR.
 ~~~
 
-> **Private for now:** repository access is required. There is no Diagonal product account or framework dependency.
+> **Open source · MIT licensed.** No Diagonal product account or framework dependency.
+
+If your agent uses the Skills CLI, you can also install it directly:
+
+~~~bash
+npx skills add Diagonal-HQ/pr-walkthrough --skill pr-walkthrough
+~~~
+
+Then install the skill’s runtime dependencies as described in its instructions.
 
 Once installed, ask for your first video:
 

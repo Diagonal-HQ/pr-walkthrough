@@ -1,15 +1,8 @@
-# Publish this repository
+# Public release
 
-This repository is private at `Diagonal-HQ/pr-walkthrough`. A public release is a separate decision. The steps below describe that future release.
+PR Video Walkthrough is public at [Diagonal-HQ/pr-walkthrough](https://github.com/Diagonal-HQ/pr-walkthrough) under the MIT license.
 
-1. Review the MIT license and attribution.
-2. Review the README and run the demo with a fresh dependency install.
-3. Confirm the owner and name, then change visibility only when a public release is authorized.
-4. Push source through your normal review process. Exclude generated media, credentials, local logs, and node_modules.
-5. Link a chosen demo MP4 in the README using an approved public media host.
-6. Add the public install command below to the README.
-
-For a repository named `Diagonal-HQ/pr-walkthrough`:
+## Install the skill
 
 ```bash
 npx skills add Diagonal-HQ/pr-walkthrough --skill pr-walkthrough
@@ -22,9 +15,13 @@ npm ci --workspaces=false
 npx playwright install chromium
 ```
 
-Keep a copy/clone option for other agents. The complete skill directory is portable. No runtime file depends on the original Diagonal checkout. Credits link to the original team and changes.
+You can also clone the public repository and copy the complete skill directory. It is self-contained. No runtime file depends on the original Diagonal checkout. Credits link to the original team and changes; links to the original Diagonal repository require access to that separate repository.
 
-CI keeps a rendered demo as a workflow artifact for validation. Use a stable public media URL for a launch post; CI artifacts are not permanent public hosting.
+## Release updates
+
+Keep the README, MIT license, and contributor credits current. Run the local checks for changed areas before pushing. Keep generated videos, credentials, browser sessions, logs, and node_modules out of git.
+
+CI keeps a rendered demo as a workflow artifact for validation. Use a stable public media URL for a launch post; CI artifacts are not permanent public hosting. Making this source repository public does not upload or publish locally generated videos.
 
 ## Suggested launch post
 
@@ -32,6 +29,6 @@ CI keeps a rendered demo as a workflow artifact for validation. Use a stable pub
 >
 > They drive the real app, generate voiceover, and assemble a demo. Backend changes get a before/after code walkthrough.
 >
-> We extracted the workflow into a skill for your own project. It includes a local demo with no API key: [repo link]
+> We extracted the workflow into a skill for your own project. It includes a local demo with no API key: https://github.com/Diagonal-HQ/pr-walkthrough
 
-Adjust this to match the release. Keep the repository private until a public release is authorized. Creating the private repository does not publish any video.
+Adjust the post to match the released features and chosen example.
